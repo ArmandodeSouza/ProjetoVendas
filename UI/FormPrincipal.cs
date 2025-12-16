@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Application.Servivces;
+using Infrastructure.Repositories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,10 +11,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace UI {
-    public partial class TelaPrincipal : Form {
-        private readonly Application.Servivces.ClienteService _clienteService;
+    public partial class FormPrincipal : Form {
+        private readonly ClienteService _clienteService;
 
-        public TelaPrincipal(Application.Servivces.ClienteService clienteService) {
+
+        public FormPrincipal(ClienteService clienteService) {
             InitializeComponent();
             _clienteService = clienteService ?? throw new ArgumentNullException(nameof(clienteService));
         }
@@ -31,5 +34,7 @@ namespace UI {
             var formCarrinho = new FormCarrinho();
             formCarrinho.Show();
         }
+
+
     }
 }

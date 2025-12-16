@@ -14,7 +14,7 @@ namespace UI {
             IClienteRepository clienteRepository = new ClienteRepository();
             ClienteService clienteService = new ClienteService(clienteRepository);
 
-            System.Windows.Forms.Application.Run(new TelaPrincipal(clienteService));
+            System.Windows.Forms.Application.Run(new FormPrincipal(clienteService));
         }
     }
 }

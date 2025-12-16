@@ -1,5 +1,5 @@
 ﻿namespace UI {
-    partial class TelaPrincipal {
+    partial class FormPrincipal {
         /// <summary>
         /// Required designer variable.
         /// </summary>

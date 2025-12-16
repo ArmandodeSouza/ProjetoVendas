@@ -28,5 +28,24 @@ namespace Application.Servivces {
 
             await _repository.AddAsync(cliente);
         }
+
+        public async Task<List<Cliente>> GetAllAsync() {
+            return await _repository.GetAllAsync();
+        }
+
+        public async Task AtualizarAsync(Cliente cliente) {
+            if (string.IsNullOrWhiteSpace(cliente.Nome))
+                throw new Exception("Nome obrigatório");
+            if (string.IsNullOrWhiteSpace(cliente.Email))
+                throw new Exception("E-mail obrigatório");
+            var clientesExistentes = await _repository.GetAllAsync();
+            if (clientesExistentes.Any(c => c.Email == cliente.Email && c.Id != cliente.Id))
+                throw new Exception("E-mail já cadastrado para outro cliente");
+            await _repository.UpdateAsync(cliente);
+        }
+
+        public async Task ExcluirAsync(int id) {
+            await _repository.DeleteAsync(id);
+        }
     }
 }
