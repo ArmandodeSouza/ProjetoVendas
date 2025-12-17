@@ -14,9 +14,9 @@ namespace Domain.Entities {
         public decimal Preco { get; private set; }
         public int Estoque { get; private set; }
 
-        internal Produto(int id, string nome, string descricao, decimal preco, int estoque) {
+        internal Produto(string nome, string descricao, decimal preco, int estoque) {
             Validar(nome, preco, estoque);
-            Id = id;
+
             Nome = nome;
             Descricao = descricao;
             Preco = preco;

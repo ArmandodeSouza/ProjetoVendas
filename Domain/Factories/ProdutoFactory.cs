@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Factory {
     public class ProdutoFactory : IProdutoFactory {
-        public Produto Criar(int id, string nome, string descricao, decimal preco, int estoque) {
-            return new Produto(id, nome, descricao, preco, estoque);
+        public Produto Criar(string nome, string descricao, decimal preco, int estoque) {
+            return new Produto(nome, descricao, preco, estoque);
         }
     }
 }

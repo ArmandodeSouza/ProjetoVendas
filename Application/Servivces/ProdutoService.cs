@@ -23,7 +23,7 @@ namespace Application.Servivces {
             if (await _repository.NomeExisteAsync(nome))
                 throw new ArgumentException("Já existe um produto com este nome.");
 
-            var produto = _factory.Criar(0, nome, descricao, preco, estoque); // id será gerado no banco
+            var produto = _factory.Criar(nome, descricao, preco, estoque); // id será gerado no banco
             await _repository.AddAsync(produto);
         }
 
@@ -33,7 +33,7 @@ namespace Application.Servivces {
                 throw new ArgumentException("Produto não encontrado.");
             if (await _repository.NomeExisteAsync(nome) && produto.Nome != nome)
                 throw new ArgumentException("Já existe outro produto com este nome.");
-            var produtoTemp = _factory.Criar(produto.Id, nome, descricao, preco, estoque);
+            var produtoTemp = _factory.Criar(nome, descricao, preco, estoque);
             await _repository.UpdateAsync(produtoTemp);
         }
 

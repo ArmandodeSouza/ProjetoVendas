@@ -13,5 +13,10 @@ namespace UI {
         public FormProduto() {
             InitializeComponent();
         }
+
+        private void btnTelaCadaProd_Click(object sender, EventArgs e) {
+            var formCadastroProduto = new FormCadastroProduto();
+            formCadastroProduto.ShowDialog();
+        }
     }
 }
