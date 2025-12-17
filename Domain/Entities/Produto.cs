@@ -14,42 +14,33 @@ namespace Domain.Entities {
         public decimal Preco { get; private set; }
         public int Estoque { get; private set; }
 
-        internal Produto(
-            string nome,
-            string descricao,
-            decimal preco,
-            int estoque) {
-            AlterarDados(nome, descricao, preco, estoque);
+        internal Produto(int id, string nome, string descricao, decimal preco, int estoque) {
+            Validar(nome, preco, estoque);
+            Id = id;
+            Nome = nome;
+            Descricao = descricao;
+            Preco = preco;
+            Estoque = estoque;
         }
 
-        public void AlterarDados(
-            string nome,
-            string descricao,
-            decimal preco,
-            int estoque) {
-            if (string.IsNullOrWhiteSpace(nome))
-                throw new DomainException("Nome é obrigatório.");
+        internal void Validar(string nome, string descricao, decimal preco, int estoque) {
+            Validar(nome, preco, estoque);
+            Nome = nome;
+            Descricao = descricao;
+            Preco = preco;
+            Estoque = estoque;
+        }
 
-            if (string.IsNullOrWhiteSpace(descricao))
-                throw new DomainException("Descrição é obrigatória.");
+        private void Validar(string nome, decimal preco, int estoque) {
+            if (string.IsNullOrWhiteSpace(nome))
+                throw new DomainException("Nome do produto é obrigatório.");
 
             if (preco <= 0)
                 throw new DomainException("Preço deve ser maior que zero.");
 
             if (estoque < 0)
                 throw new DomainException("Estoque não pode ser negativo.");
-
-            Nome = nome.Trim();
-            Descricao = descricao.Trim();
-            Preco = preco;
-            Estoque = estoque;
         }
 
-        public void AlterarEstoque(int novoEstoque) {
-            if (novoEstoque < 0)
-                throw new DomainException("Estoque não pode ser negativo.");
-
-            Estoque = novoEstoque;
-        }
     }
 }

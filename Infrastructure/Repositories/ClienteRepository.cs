@@ -23,7 +23,7 @@ namespace Infrastructure.Repositories {
             return result != null;
         }
 
-        public async Task AddAsync(Cliente cliente) {
+        public async Task AddAsync(Cliente entity) {
             const string sql = @"
                 INSERT INTO clientes (nome, email, telefone)
                 VALUES (@nome, @email, @telefone)";
@@ -32,9 +32,9 @@ namespace Infrastructure.Repositories {
             await conn.OpenAsync();
 
             await using var cmd = new NpgsqlCommand(sql, (NpgsqlConnection)conn);
-            cmd.Parameters.AddWithValue("nome", cliente.Nome);
-            cmd.Parameters.AddWithValue("email", cliente.Email);
-            cmd.Parameters.AddWithValue("telefone", cliente.Telefone);
+            cmd.Parameters.AddWithValue("nome", entity.Nome);
+            cmd.Parameters.AddWithValue("email", entity.Email);
+            cmd.Parameters.AddWithValue("telefone", entity.Telefone);
 
             await cmd.ExecuteNonQueryAsync();
         }
@@ -93,6 +93,10 @@ namespace Infrastructure.Repositories {
             cmd.Parameters.AddWithValue("id", id);
 
             await cmd.ExecuteNonQueryAsync();
+        }
+
+        public Task<Cliente?> GetByIdAsync(int id) {
+            throw new NotImplementedException();
         }
     }
 }

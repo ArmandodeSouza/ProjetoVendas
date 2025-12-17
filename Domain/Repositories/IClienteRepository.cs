@@ -6,11 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Repositories {
-    public interface IClienteRepository {
+    public interface IClienteRepository : IRepository<Cliente> {
         Task<bool> EmailExisteAsync(string email);
-        Task AddAsync(Cliente cliente);
-        Task<List<Cliente>> GetAllAsync();
-        Task UpdateAsync(Cliente cliente);
-        Task DeleteAsync(int id);
+
     }
 }

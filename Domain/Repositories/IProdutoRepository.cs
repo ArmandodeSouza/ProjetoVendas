@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Repositories {
-    internal class IProdutoRepository {
+    public interface IProdutoRepository : IRepository<Produto> {
+
+        Task<bool> NomeExisteAsync(string nome);
     }
 }
