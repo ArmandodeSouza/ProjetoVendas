@@ -108,7 +108,7 @@ namespace UI {
             if (confirmacao != DialogResult.Yes) {
                 return;
             }
-            try {
+            try { 
                 await _produtoService.ExcluirAsync(produtoSelecionado.Id);
                 await CarregarProdutosAsync();
             } catch (Exception ex) {
