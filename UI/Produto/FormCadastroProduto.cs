@@ -15,14 +15,22 @@ namespace UI {
     public partial class FormCadastroProduto : Form {
 
         private readonly ProdutoService _produtoService;
-        private readonly ProdutoFactory _produtoFactory;
+
         private Produto? _produtoEmEdicao;
         public bool CadastroRealizadoComSucesso { get; private set; }
 
-        public FormCadastroProduto(ProdutoService produtoService, ProdutoFactory produtoFactory) {
+        public FormCadastroProduto(ProdutoService produtoService) {
             InitializeComponent();
             _produtoService = produtoService ?? throw new ArgumentNullException(nameof(produtoService));
-            _produtoFactory = produtoFactory ?? throw new ArgumentNullException(nameof(produtoFactory));
+
+            PreencherCamposParaEdicao();
+        }
+
+        public FormCadastroProduto(ProdutoService produtoService, Produto produto) {
+            InitializeComponent();
+            _produtoService = produtoService ?? throw new ArgumentNullException(nameof(produtoService));
+            _produtoEmEdicao = produto;
+            PreencherCamposParaEdicao();
         }
 
         private void PreencherCamposParaEdicao() {
@@ -50,6 +58,8 @@ namespace UI {
 
                     MessageBox.Show("Produto cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 } else {
+
+
 
                     await _produtoService.AtualizarAsync(
                         _produtoEmEdicao.Id,

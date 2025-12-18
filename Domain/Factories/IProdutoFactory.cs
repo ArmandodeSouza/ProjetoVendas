@@ -8,5 +8,6 @@ using System.Threading.Tasks;
 namespace Domain.Factory {
     public interface IProdutoFactory {
         Produto Criar(string nome, string descricao, decimal preco, int estoque);
+        Produto Alterar(int id, string nome, string descricao, decimal preco, int estoque);
     }
 }

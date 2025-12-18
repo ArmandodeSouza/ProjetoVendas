@@ -9,13 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories {
-    internal class ProdutoRepository : IProdutoRepository {
+    public class ProdutoRepository : IProdutoRepository {
 
-        private readonly IProdutoFactory _factory;
-
-        public ProdutoRepository(IProdutoFactory produtoFactory) {
-            _factory = produtoFactory;
-        }
+        private readonly IProdutoFactory _factory = new ProdutoFactory();
 
         public async Task AddAsync(Produto produto) {
             const string sql =
@@ -59,7 +55,7 @@ namespace Infrastructure.Repositories {
             await using var reader = await cmd.ExecuteReaderAsync();
 
             while (await reader.ReadAsync()) {
-                var produto = _factory.Criar(
+                var produto = _factory.Alterar(
                     reader.GetInt32(0),
                     reader.GetString(1),
                     reader.GetString(2),
@@ -85,7 +81,7 @@ namespace Infrastructure.Repositories {
             await using var reader = await cmd.ExecuteReaderAsync();
 
             if (await reader.ReadAsync()) {
-                return _factory.Criar(
+                return _factory.Alterar(
                     reader.GetInt32(0),
                     reader.GetString(1),
                     reader.GetString(2),
@@ -119,6 +115,7 @@ namespace Infrastructure.Repositories {
             await conn.OpenAsync();
 
             await using var cmd = new Npgsql.NpgsqlCommand(sql, (Npgsql.NpgsqlConnection)conn);
+            cmd.Parameters.AddWithValue("@id", produto.Id);
             cmd.Parameters.AddWithValue("nome", produto.Nome);
             cmd.Parameters.AddWithValue("descricao", produto.Descricao);
             cmd.Parameters.AddWithValue("preco", produto.Preco);

@@ -41,18 +41,17 @@
             panel1.BackColor = SystemColors.ScrollBar;
             panel1.Controls.Add(label1);
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(913, 83);
+            panel1.Size = new Size(799, 62);
             panel1.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Arial", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(344, 20);
+            label1.Location = new Point(301, 15);
             label1.Name = "label1";
-            label1.Size = new Size(241, 39);
+            label1.Size = new Size(197, 32);
             label1.TabIndex = 1;
             label1.Text = "Projeto Vendas";
             label1.TextAlign = ContentAlignment.TopCenter;
@@ -62,50 +61,47 @@
             dgvClientes.AllowUserToAddRows = false;
             dgvClientes.AllowUserToDeleteRows = false;
             dgvClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvClientes.Location = new Point(2, 164);
-            dgvClientes.Margin = new Padding(3, 4, 3, 4);
+            dgvClientes.Location = new Point(2, 123);
             dgvClientes.MultiSelect = false;
             dgvClientes.Name = "dgvClientes";
             dgvClientes.ReadOnly = true;
             dgvClientes.RowHeadersWidth = 51;
             dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvClientes.Size = new Size(911, 369);
+            dgvClientes.Size = new Size(797, 277);
             dgvClientes.TabIndex = 1;
+            dgvClientes.CellContentClick += dgvClientes_CellContentClick;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(11, 123);
+            label2.Location = new Point(10, 92);
             label2.Name = "label2";
-            label2.Size = new Size(67, 23);
+            label2.Size = new Size(54, 18);
             label2.TabIndex = 2;
             label2.Text = "Nome:";
             // 
             // txtPesquiNome
             // 
-            txtPesquiNome.Location = new Point(80, 116);
-            txtPesquiNome.Margin = new Padding(3, 4, 3, 4);
+            txtPesquiNome.Location = new Point(70, 87);
             txtPesquiNome.Name = "txtPesquiNome";
-            txtPesquiNome.Size = new Size(354, 27);
+            txtPesquiNome.Size = new Size(310, 23);
             txtPesquiNome.TabIndex = 3;
             // 
             // btnPesquisarCli
             // 
-            btnPesquisarCli.Location = new Point(456, 115);
-            btnPesquisarCli.Margin = new Padding(3, 4, 3, 4);
+            btnPesquisarCli.Location = new Point(399, 86);
             btnPesquisarCli.Name = "btnPesquisarCli";
-            btnPesquisarCli.Size = new Size(86, 31);
+            btnPesquisarCli.Size = new Size(75, 23);
             btnPesquisarCli.TabIndex = 4;
             btnPesquisarCli.Text = "Pesquisar";
             btnPesquisarCli.UseVisualStyleBackColor = true;
             // 
             // btnExcluirCli
             // 
-            btnExcluirCli.Location = new Point(815, 553);
-            btnExcluirCli.Margin = new Padding(3, 4, 3, 4);
+            btnExcluirCli.Location = new Point(713, 415);
             btnExcluirCli.Name = "btnExcluirCli";
-            btnExcluirCli.Size = new Size(86, 31);
+            btnExcluirCli.Size = new Size(75, 23);
             btnExcluirCli.TabIndex = 5;
             btnExcluirCli.Text = "Excluir";
             btnExcluirCli.UseVisualStyleBackColor = true;
@@ -113,10 +109,9 @@
             // 
             // btnEditarCli
             // 
-            btnEditarCli.Location = new Point(711, 553);
-            btnEditarCli.Margin = new Padding(3, 4, 3, 4);
+            btnEditarCli.Location = new Point(622, 415);
             btnEditarCli.Name = "btnEditarCli";
-            btnEditarCli.Size = new Size(86, 31);
+            btnEditarCli.Size = new Size(75, 23);
             btnEditarCli.TabIndex = 6;
             btnEditarCli.Text = "Editar";
             btnEditarCli.UseVisualStyleBackColor = true;
@@ -124,10 +119,9 @@
             // 
             // btnTelaCadastroCli
             // 
-            btnTelaCadastroCli.Location = new Point(11, 553);
-            btnTelaCadastroCli.Margin = new Padding(3, 4, 3, 4);
+            btnTelaCadastroCli.Location = new Point(10, 415);
             btnTelaCadastroCli.Name = "btnTelaCadastroCli";
-            btnTelaCadastroCli.Size = new Size(86, 31);
+            btnTelaCadastroCli.Size = new Size(75, 23);
             btnTelaCadastroCli.TabIndex = 7;
             btnTelaCadastroCli.Text = "Cadastrar";
             btnTelaCadastroCli.UseVisualStyleBackColor = true;
@@ -135,9 +129,9 @@
             // 
             // FormCliente
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(800, 450);
             Controls.Add(btnTelaCadastroCli);
             Controls.Add(btnEditarCli);
             Controls.Add(btnExcluirCli);
@@ -146,7 +140,6 @@
             Controls.Add(label2);
             Controls.Add(dgvClientes);
             Controls.Add(panel1);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "FormCliente";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cliente";

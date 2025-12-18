@@ -12,18 +12,24 @@ using System.Threading.Tasks;
 namespace Application.Servivces {
     public class ProdutoService : IProdutoService {
         private readonly IProdutoRepository _repository;
-        private readonly IProdutoFactory _factory;
+        private readonly IProdutoFactory _factory = new ProdutoFactory();
 
-        public ProdutoService(IProdutoRepository repository, IProdutoFactory factory) {
+        public ProdutoService(IProdutoRepository repository) {
             _repository = repository;
-            _factory = factory;
+
+        }
+        public async Task<List<Produto>> GetAllAsync() {
+            return await _repository.GetAllAsync();
         }
 
+        public async Task<Produto?> GetByIdAsync(int id) {
+            return await _repository.GetByIdAsync(id);
+        }
         public async Task CadastrarAsync(string nome, string descricao, decimal preco, int estoque) {
             if (await _repository.NomeExisteAsync(nome))
                 throw new ArgumentException("Já existe um produto com este nome.");
 
-            var produto = _factory.Criar(nome, descricao, preco, estoque); // id será gerado no banco
+            var produto = _factory.Criar(nome, descricao, preco, estoque);
             await _repository.AddAsync(produto);
         }
 
@@ -33,7 +39,7 @@ namespace Application.Servivces {
                 throw new ArgumentException("Produto não encontrado.");
             if (await _repository.NomeExisteAsync(nome) && produto.Nome != nome)
                 throw new ArgumentException("Já existe outro produto com este nome.");
-            var produtoTemp = _factory.Criar(nome, descricao, preco, estoque);
+            var produtoTemp = _factory.Alterar(id, nome, descricao, preco, estoque);
             await _repository.UpdateAsync(produtoTemp);
         }
 
@@ -45,13 +51,7 @@ namespace Application.Servivces {
             await _repository.DeleteAsync(id);
         }
 
-        public async Task<List<Produto>> GetAllAsync() {
-            return await _repository.GetAllAsync();
-        }
 
-        public async Task<Produto?> GetByIdAsync(int id) {
-            return await _repository.GetByIdAsync(id);
-        }
     }
 
 }

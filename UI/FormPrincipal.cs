@@ -9,25 +9,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UI.Factories;
 
 namespace UI {
     public partial class FormPrincipal : Form {
-        private readonly ClienteService _clienteService;
+        private readonly FormFactory _formFactory;
 
-
-        public FormPrincipal(ClienteService clienteService) {
+        public FormPrincipal(FormFactory formFactory) {
             InitializeComponent();
-            _clienteService = clienteService ?? throw new ArgumentNullException(nameof(clienteService));
+            _formFactory = formFactory ?? throw new ArgumentNullException(nameof(formFactory));
         }
 
         private void btnAcessCli_Click(object sender, EventArgs e) {
-            var formCliente = new FormCliente(_clienteService);
-            formCliente.Show();
+            _formFactory.CriarFormCliente().Show();
         }
 
         private void btnAcessProd_Click(object sender, EventArgs e) {
-            var formaProduto = new FormProduto();
-            formaProduto.Show();
+            _formFactory.CriarFormProduto().Show();
         }
 
         private void btnAcessComp_Click(object sender, EventArgs e) {

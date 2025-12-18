@@ -4,17 +4,22 @@ using Infrastructure.Repositories;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Windows.Forms;
+using UI.Factories;
 
 namespace UI {
     static class Program {
         [STAThread]
         static void Main(string[] args) {
+
+
             ApplicationConfiguration.Initialize();
 
-            IClienteRepository clienteRepository = new ClienteRepository();
-            ClienteService clienteService = new ClienteService(clienteRepository);
+            var clienteService = new ClienteService(new ClienteRepository());
+            var produtoService = new ProdutoService(new ProdutoRepository());
 
-            System.Windows.Forms.Application.Run(new FormPrincipal(clienteService));
+            var formFactory = new FormFactory(clienteService, produtoService);
+
+            System.Windows.Forms.Application.Run(new FormPrincipal(formFactory));
         }
     }
 }
