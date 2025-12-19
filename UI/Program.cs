@@ -16,8 +16,9 @@ namespace UI {
 
             var clienteService = new ClienteService(new ClienteRepository());
             var produtoService = new ProdutoService(new ProdutoRepository());
+            var vendaService = new VendaService(new VendaRepository());
 
-            var formFactory = new FormFactory(clienteService, produtoService);
+            var formFactory = new FormFactory(clienteService, produtoService, vendaService);
 
             System.Windows.Forms.Application.Run(new FormPrincipal(formFactory));
         }

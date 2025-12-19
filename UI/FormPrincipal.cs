@@ -29,8 +29,7 @@ namespace UI {
         }
 
         private void btnAcessComp_Click(object sender, EventArgs e) {
-            var formCarrinho = new FormCarrinho();
-            formCarrinho.Show();
+            _formFactory.CriarFormCarrinho().Show();
         }
 
 

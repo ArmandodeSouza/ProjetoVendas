@@ -51,5 +51,14 @@ namespace Domain.Entities {
                 throw new DomainException("Estoque não pode ser negativo.");
         }
 
+        public void BaixarEstoque(int quantidade) {
+            if (quantidade <= 0)
+                throw new DomainException("Quantidade inválida");
+
+            if (Estoque < quantidade)
+                throw new DomainException("Estoque insuficiente");
+
+            Estoque -= quantidade;
+        }
     }
 }

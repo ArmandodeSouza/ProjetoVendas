@@ -30,6 +30,10 @@ namespace Infrastructure.Repositories {
             await cmd.ExecuteNonQueryAsync();
         }
 
+        public Task AtualizarEstoqueAsync(int produtoId, int quantidade) {
+            throw new NotImplementedException();
+        }
+
         public async Task DeleteAsync(int id) {
             const string sql =
                 "DELETE FROM produtos WHERE id = @id";
@@ -104,6 +108,14 @@ namespace Infrastructure.Repositories {
 
             var result = await cmd.ExecuteScalarAsync();
             return Convert.ToInt32(result) > 0;
+        }
+
+        public Task<decimal> ObterPrecoAsync(int id) {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> TemEstoqueAsync(int produtoId, int quantidade) {
+            throw new NotImplementedException();
         }
 
         public async Task UpdateAsync(Produto produto) {

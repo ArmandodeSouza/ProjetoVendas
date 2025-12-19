@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Repositories {
-    public interface IClienteRepository : IRepository<Cliente> {
-        Task<bool> EmailExisteAsync(string email);
-        
+    public interface IVendaRepository {
+        Task<int> InserirAsync(Venda venda);
     }
 }

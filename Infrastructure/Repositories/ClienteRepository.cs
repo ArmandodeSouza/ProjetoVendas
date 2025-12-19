@@ -3,6 +3,7 @@ using Domain.Repositories;
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,5 +99,6 @@ namespace Infrastructure.Repositories {
         public Task<Cliente?> GetByIdAsync(int id) {
             throw new NotImplementedException();
         }
+
     }
 }
