@@ -15,5 +15,7 @@ namespace Application.Interfaces {
 
         Task ExcluirAsync(int id);
 
+        Task<List<Cliente>> NomeExisteAsync(string nome);
+
     }
 }

@@ -47,5 +47,9 @@ namespace Application.Servivces {
         public async Task ExcluirAsync(int id) {
             await _repository.DeleteAsync(id);
         }
+
+        public async Task<List<Cliente>> NomeExisteAsync(string nome) {
+            return await _repository.NomeExisteAsync(nome);
+        }
     }
 }

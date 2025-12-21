@@ -38,26 +38,35 @@ namespace Infrastructure.Repositories {
                     cmdItem.Parameters.AddWithValue("quantidade", item.Quantidade);
                     cmdItem.Parameters.AddWithValue("preco_unitario", item.PrecoUnitario);
                     await cmdItem.ExecuteNonQueryAsync();
+
+
+
                 }
-                ;
+
+                var sqlEstoque = @"
+                UPDATE produtos
+                SET estoque = estoque - @quantidade
+                WHERE id = @produto_id";
+                foreach (var item in venda.Itens) {
+                    await using var cmdEstoque = new NpgsqlCommand(sqlEstoque, (NpgsqlConnection)conn);
+                    cmdEstoque.Parameters.AddWithValue("quantidade", item.Quantidade);
+                    cmdEstoque.Parameters.AddWithValue("produto_id", item.ProdutoId);
+                    await cmdEstoque.ExecuteNonQueryAsync();
+                }
+
+                await transaction.CommitAsync();
+
                 return vendaId;
             } catch {
                 await transaction.RollbackAsync();
                 throw;
             }
 
-            var sqlEstoque = @"
-                UPDATE produtos
-                SET estoque = estoque - @quantidade
-                WHERE id = @produto_id";
-            foreach (var item in venda.Itens) {
-                await using var cmdEstoque = new NpgsqlCommand(sqlEstoque, (NpgsqlConnection)conn);
-                cmdEstoque.Parameters.AddWithValue("quantidade", item.Quantidade);
-                cmdEstoque.Parameters.AddWithValue("produto_id", item.ProdutoId);
-                await cmdEstoque.ExecuteNonQueryAsync();
 
-            }
-            await transaction.CommitAsync();
+
+
         }
+
     }
 }
+

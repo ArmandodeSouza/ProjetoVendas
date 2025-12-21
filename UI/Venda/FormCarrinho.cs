@@ -62,10 +62,12 @@ namespace UI {
             txtValorItem.Text = "R$ 0,00";
             txtValorEmEstoque.Text = "-";
             _produtoSelecionado = null;
+            lstNomeProduto.SelectedIndex = -1;
         }
         private void LimparSelecaoProduto() {
             txtNomeProduto.Clear();
             numQuantidade.Value = 1;
+            lstNomeProduto.SelectedIndex = -1;
 
             LimparDadosProduto();
 
@@ -150,6 +152,7 @@ namespace UI {
                 AtualizarTotal();
                 LimparSelecaoProduto();
                 txtNomeCliente.Enabled = false;
+                lstNomeCliente.SelectedIndex = -1;
 
             } catch (DomainException ex) {
                 MessageBox.Show(ex.Message);
@@ -218,9 +221,10 @@ namespace UI {
 
         }
 
-        private void txtNomeProduto_Click(object sender, EventArgs e) {
+        private async void txtNomeProduto_Click(object sender, EventArgs e) {
             if (lstNomeProduto.SelectedItem is not Produto produto)
                 return;
+
 
             _produtoSelecionado = produto;
 
@@ -228,6 +232,9 @@ namespace UI {
             lstNomeProduto.Visible = false;
 
             MostrarDadosProduto(produto);
+
+            _produtos = await _produtoService.GetAllAsync();
+
 
         }
 
@@ -270,7 +277,7 @@ namespace UI {
             }
         }
 
-        private void NovaVenda() {
+        private async Task NovaVenda() {
 
             _clienteSelecionado = null;
             _carrinho = new Carrinho();
@@ -280,6 +287,8 @@ namespace UI {
 
             dgvCarrinho.DataSource = null;
             lblTotal.Text = "R$ 0,00";
+
+            _produtos = await _produtoService.GetAllAsync();
         }
 
         private async void btnConcluirPedido_ClickAsync(object sender, EventArgs e) {
@@ -297,7 +306,7 @@ namespace UI {
 
                 MessageBox.Show("Venda concluída com sucesso!");
 
-                NovaVenda();
+                await NovaVenda();
             } catch (DomainException ex) {
                 MessageBox.Show(ex.Message);
             } catch (Exception) {

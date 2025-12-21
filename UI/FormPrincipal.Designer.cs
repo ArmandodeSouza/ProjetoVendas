@@ -28,6 +28,7 @@
             btnAcessCli = new Button();
             btnAcessProd = new Button();
             btnAcessComp = new Button();
+            btnRelatorio = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -81,16 +82,27 @@
             btnAcessComp.UseVisualStyleBackColor = true;
             btnAcessComp.Click += btnAcessComp_Click;
             // 
-            // TelaPrincipal
+            // btnRelatorio
+            // 
+            btnRelatorio.Location = new Point(70, 213);
+            btnRelatorio.Name = "btnRelatorio";
+            btnRelatorio.Size = new Size(75, 23);
+            btnRelatorio.TabIndex = 4;
+            btnRelatorio.Text = "Relatório";
+            btnRelatorio.UseVisualStyleBackColor = true;
+            btnRelatorio.Click += btnRelatorio_Click;
+            // 
+            // FormPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(219, 296);
+            Controls.Add(btnRelatorio);
             Controls.Add(btnAcessComp);
             Controls.Add(btnAcessProd);
             Controls.Add(btnAcessCli);
             Controls.Add(panel1);
-            Name = "TelaPrincipal";
+            Name = "FormPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "TelaPrincipal";
             panel1.ResumeLayout(false);
@@ -105,5 +117,6 @@
         private Button btnAcessCli;
         private Button btnAcessProd;
         private Button btnAcessComp;
+        private Button btnRelatorio;
     }
 }

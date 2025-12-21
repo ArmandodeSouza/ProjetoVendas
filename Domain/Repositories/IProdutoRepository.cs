@@ -14,5 +14,7 @@ namespace Domain.Repositories {
         Task<bool> TemEstoqueAsync(int produtoId, int quantidade);
         Task AtualizarEstoqueAsync(int produtoId, int quantidade);
 
+        Task<List<Produto>> BuscaProdutoAsync(string nome);
+
     }
 }

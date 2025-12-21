@@ -27,11 +27,12 @@
             btnEditarProd = new Button();
             btnExcluirProd = new Button();
             btnPesquisarCli = new Button();
-            txtPesquiNome = new TextBox();
             label2 = new Label();
             dgvProdutos = new DataGridView();
             panel1 = new Panel();
             label1 = new Label();
+            txtProduto = new TextBox();
+            lstProdutos = new ListBox();
             ((System.ComponentModel.ISupportInitialize)dgvProdutos).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -68,19 +69,13 @@
             // 
             // btnPesquisarCli
             // 
-            btnPesquisarCli.Location = new Point(388, 89);
+            btnPesquisarCli.Location = new Point(369, 95);
             btnPesquisarCli.Name = "btnPesquisarCli";
             btnPesquisarCli.Size = new Size(75, 23);
             btnPesquisarCli.TabIndex = 12;
             btnPesquisarCli.Text = "Pesquisar";
             btnPesquisarCli.UseVisualStyleBackColor = true;
-            // 
-            // txtPesquiNome
-            // 
-            txtPesquiNome.Location = new Point(66, 92);
-            txtPesquiNome.Name = "txtPesquiNome";
-            txtPesquiNome.Size = new Size(310, 23);
-            txtPesquiNome.TabIndex = 11;
+            btnPesquisarCli.Click += btnPesquisarCli_Click;
             // 
             // label2
             // 
@@ -127,17 +122,38 @@
             label1.Text = "Projeto Vendas";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
+            // txtProduto
+            // 
+            txtProduto.Location = new Point(63, 95);
+            txtProduto.Name = "txtProduto";
+            txtProduto.Size = new Size(285, 23);
+            txtProduto.TabIndex = 17;
+            txtProduto.Click += txtProduto_Click;
+            txtProduto.TextChanged += txtProduto_TextChanged;
+            // 
+            // lstProdutos
+            // 
+            lstProdutos.FormattingEnabled = true;
+            lstProdutos.Location = new Point(63, 124);
+            lstProdutos.Name = "lstProdutos";
+            lstProdutos.Size = new Size(285, 94);
+            lstProdutos.TabIndex = 18;
+            lstProdutos.Visible = false;
+            lstProdutos.Click += txtProduto_Click;
+            lstProdutos.SelectedIndexChanged += lstProdutos_SelectedIndexChanged;
+            // 
             // FormProduto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lstProdutos);
+            Controls.Add(txtProduto);
             Controls.Add(panel1);
             Controls.Add(btnTelaCadaProd);
             Controls.Add(btnEditarProd);
             Controls.Add(btnExcluirProd);
             Controls.Add(btnPesquisarCli);
-            Controls.Add(txtPesquiNome);
             Controls.Add(label2);
             Controls.Add(dgvProdutos);
             Margin = new Padding(3, 2, 3, 2);
@@ -158,10 +174,11 @@
         private Button btnEditarProd;
         private Button btnExcluirProd;
         private Button btnPesquisarCli;
-        private TextBox txtPesquiNome;
         private Label label2;
         private DataGridView dgvProdutos;
         private Panel panel1;
         private Label label1;
+        private TextBox txtProduto;
+        private ListBox lstProdutos;
     }
 }

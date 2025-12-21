@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UI.Factories;
+using UI.Relatorio;
+
 
 namespace UI {
     public partial class FormPrincipal : Form {
@@ -32,6 +34,8 @@ namespace UI {
             _formFactory.CriarFormCarrinho().Show();
         }
 
-
+        private void btnRelatorio_Click(object sender, EventArgs e) {
+            _formFactory.CriarFormRelatorio().Show();
+        }
     }
 }

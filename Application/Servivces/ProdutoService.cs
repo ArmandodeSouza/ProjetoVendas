@@ -51,6 +51,9 @@ namespace Application.Servivces {
             await _repository.DeleteAsync(id);
         }
 
+        public async Task<List<Produto>> BuscaProdutoNomeAsync(string nome) {
+            return await _repository.BuscaProdutoAsync(nome);
+        }
 
     }
 

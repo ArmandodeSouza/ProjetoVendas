@@ -136,5 +136,27 @@ namespace Infrastructure.Repositories {
             await cmd.ExecuteNonQueryAsync();
 
         }
+
+        public async Task<List<Produto>> BuscaProdutoAsync(string nome) {
+            const string sql =
+                "SELECT id, nome, descricao, preco, estoque FROM produtos WHERE nome ILIKE @nome ORDER BY nome";
+            var produtos = new List<Produto>();
+            await using var conn = DbConnectionFactory.Create();
+            await conn.OpenAsync();
+            await using var cmd = new Npgsql.NpgsqlCommand(sql, (Npgsql.NpgsqlConnection)conn);
+            cmd.Parameters.AddWithValue("nome", $"%{nome}%");
+            await using var reader = await cmd.ExecuteReaderAsync();
+            while (await reader.ReadAsync()) {
+                var produto = _factory.Alterar(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2),
+                    reader.GetDecimal(3),
+                    reader.GetInt32(4)
+                );
+                produtos.Add(produto);
+            }
+            return produtos;
+        }
     }
 }

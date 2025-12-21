@@ -27,11 +27,12 @@
             label1 = new Label();
             dgvClientes = new DataGridView();
             label2 = new Label();
-            txtPesquiNome = new TextBox();
             btnPesquisarCli = new Button();
             btnExcluirCli = new Button();
             btnEditarCli = new Button();
             btnTelaCadastroCli = new Button();
+            txtNome = new TextBox();
+            lstNome = new ListBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvClientes).BeginInit();
             SuspendLayout();
@@ -81,13 +82,6 @@
             label2.TabIndex = 2;
             label2.Text = "Nome:";
             // 
-            // txtPesquiNome
-            // 
-            txtPesquiNome.Location = new Point(70, 87);
-            txtPesquiNome.Name = "txtPesquiNome";
-            txtPesquiNome.Size = new Size(310, 23);
-            txtPesquiNome.TabIndex = 3;
-            // 
             // btnPesquisarCli
             // 
             btnPesquisarCli.Location = new Point(399, 86);
@@ -96,6 +90,7 @@
             btnPesquisarCli.TabIndex = 4;
             btnPesquisarCli.Text = "Pesquisar";
             btnPesquisarCli.UseVisualStyleBackColor = true;
+            btnPesquisarCli.Click += btnPesquisarCli_Click;
             // 
             // btnExcluirCli
             // 
@@ -127,16 +122,37 @@
             btnTelaCadastroCli.UseVisualStyleBackColor = true;
             btnTelaCadastroCli.Click += btnTelaCadastroCli_Click;
             // 
+            // txtNome
+            // 
+            txtNome.Location = new Point(70, 87);
+            txtNome.Name = "txtNome";
+            txtNome.Size = new Size(272, 23);
+            txtNome.TabIndex = 8;
+            txtNome.Click += txtNome_Click;
+            txtNome.TextChanged += txtNome_TextChanged;
+            // 
+            // lstNome
+            // 
+            lstNome.FormattingEnabled = true;
+            lstNome.Location = new Point(70, 116);
+            lstNome.Name = "lstNome";
+            lstNome.Size = new Size(272, 94);
+            lstNome.TabIndex = 9;
+            lstNome.Visible = false;
+            lstNome.Click += txtNome_Click;
+            lstNome.SelectedIndexChanged += lstNome_SelectedIndexChanged;
+            // 
             // FormCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lstNome);
+            Controls.Add(txtNome);
             Controls.Add(btnTelaCadastroCli);
             Controls.Add(btnEditarCli);
             Controls.Add(btnExcluirCli);
             Controls.Add(btnPesquisarCli);
-            Controls.Add(txtPesquiNome);
             Controls.Add(label2);
             Controls.Add(dgvClientes);
             Controls.Add(panel1);
@@ -157,10 +173,11 @@
         private Label label1;
         private DataGridView dgvClientes;
         private Label label2;
-        private TextBox txtPesquiNome;
         private Button btnPesquisarCli;
         private Button btnExcluirCli;
         private Button btnEditarCli;
         private Button btnTelaCadastroCli;
+        private TextBox txtNome;
+        private ListBox lstNome;
     }
 }

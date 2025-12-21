@@ -11,6 +11,9 @@ namespace UI {
 
         private readonly BindingSource _bindingSource = new BindingSource();
 
+        private Cliente? _clienteSelecionado;
+        private List<Cliente> _clientes = new();
+        private bool _digitacaoUsuario = true;
 
         public FormCliente(ClienteService clienteService) {
             InitializeComponent();
@@ -58,7 +61,11 @@ namespace UI {
 
         private async void FormCliente_Load(object sender, EventArgs e) {
             ConfigurarGrid();
+
+            _clientes = await _clienteService.GetAllAsync();
             _bindingSource.DataSource = await _clienteService.GetAllAsync();
+
+            lstNome.DisplayMember = "Nome";
         }
 
         private async void btnEditar_Click(object sender, EventArgs e) {
@@ -111,6 +118,64 @@ namespace UI {
 
         private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e) {
 
+        }
+
+        private void txtPesquiNome_Click(object sender, EventArgs e) {
+
+        }
+
+        private async void btnPesquisarCli_Click(object sender, EventArgs e) {
+
+            var nome = txtNome.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(nome)) {
+                await CarregarClientesAsync();
+                return;
+            }
+
+            var clientes = await _clienteService.NomeExisteAsync(nome);
+
+            if (!clientes.Any()) {
+                MessageBox.Show("Não existe cadastro com esse nome.");
+                _bindingSource.DataSource = null;
+                return;
+            }
+
+            _bindingSource.DataSource = clientes;
+        }
+
+        private async void txtNome_TextChanged(object sender, EventArgs e) {
+            var texto = txtNome.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(texto)) {
+                lstNome.Visible = false;
+                return;
+            }
+
+            var filtrados = _clientes.Where(c => c.Nome.Contains(texto, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (!filtrados.Any()) {
+                lstNome.Visible = false;
+                return;
+            }
+
+            lstNome.DataSource = filtrados;
+            lstNome.Visible = true;
+        }
+
+        private void lstNome_SelectedIndexChanged(object sender, EventArgs e) {
+
+        }
+
+        private void txtNome_Click(object sender, EventArgs e) {
+            if (lstNome.SelectedItem is not Cliente cliente)
+                return;
+
+            _clienteSelecionado = cliente;
+
+            txtNome.Text = cliente.Nome;
+            lstNome.Text = cliente.Nome;
+            lstNome.Visible = false;
         }
     }
 }

@@ -13,5 +13,7 @@ namespace Application.Interfaces {
         Task ExcluirAsync(int id);
         Task<List<Produto>> GetAllAsync();
         Task<Produto?> GetByIdAsync(int id);
+
+        Task<List<Produto>> BuscaProdutoNomeAsync(string nome);
     }
 }

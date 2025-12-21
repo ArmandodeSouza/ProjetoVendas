@@ -100,5 +100,36 @@ namespace Infrastructure.Repositories {
             throw new NotImplementedException();
         }
 
+        public async Task<List<Cliente>> NomeExisteAsync(string nome) {
+
+            const string sql = @"
+        SELECT id, nome, email, telefone
+        FROM clientes
+        WHERE nome ILIKE @nome
+        ORDER BY nome";
+
+            using var conn = DbConnectionFactory.Create();
+            await conn.OpenAsync();
+
+            await using var cmd = new NpgsqlCommand(sql, (NpgsqlConnection)conn);
+
+            cmd.Parameters.AddWithValue("@nome", $"%{nome}%");
+
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            var clientes = new List<Cliente>();
+
+            while (await reader.ReadAsync()) {
+                clientes.Add(new Cliente {
+                    Id = reader.GetInt32(0),
+                    Nome = reader.GetString(1),
+                    Email = reader.GetString(2),
+                    Telefone = reader.GetString(3)
+                });
+            }
+
+            return clientes;
+        }
+
     }
 }
