@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces.Repositories {
     public interface IRelatorioRepository {
-
         Task<List<RelatorioVendaDto>> ObterRelatorioVendasAsync(DateTime dataInicio, DateTime dataFim);
     }
 }

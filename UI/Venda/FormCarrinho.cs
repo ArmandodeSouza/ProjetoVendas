@@ -40,7 +40,6 @@ namespace UI {
 
         private List<Cliente> _clientes = new();
         private List<Produto> _produtos = new();
-        private VendaService vendaService;
         private Carrinho _carrinho = new();
 
         private Cliente? _clienteSelecionado;
@@ -72,7 +71,6 @@ namespace UI {
             LimparDadosProduto();
 
         }
-
 
         private void ConfigurarGrid() {
             dgvCarrinho.AutoGenerateColumns = false;
@@ -107,6 +105,14 @@ namespace UI {
             dgvCarrinho.AllowUserToAddRows = false;
             dgvCarrinho.AllowUserToDeleteRows = false;
         }
+        private void AtualizarGrid() {
+            dgvCarrinho.DataSource = null;
+            dgvCarrinho.DataSource = _carrinho.Itens.ToList();
+        }
+
+        private void AtualizarTotal() {
+            lblTotal.Text = _carrinho.Total.ToString("C");
+        }
 
         private async void FormCarrinho_Load(object sender, EventArgs e) {
             _clientes = await _clienteService.GetAllAsync();
@@ -123,14 +129,19 @@ namespace UI {
 
         }
 
-        private void AtualizarGrid() {
-            dgvCarrinho.DataSource = null;
-            dgvCarrinho.DataSource = _carrinho.Itens.ToList();
+        private void numQuantidade_ValueChanged(object sender, EventArgs e) {
+            if (_produtoSelecionado == null) {
+                txtValorItem.Text = "R$ 0,00";
+                return;
+            }
+
+            var quantidade = (int)numQuantidade.Value;
+            var subtotal = _produtoSelecionado.Preco * quantidade;
+
+            txtValorItem.Text = subtotal.ToString("C");
+
         }
 
-        private void AtualizarTotal() {
-            lblTotal.Text = _carrinho.Total.ToString("C");
-        }
         private void btnAdicionarItem_Click(object sender, EventArgs e) {
 
             if (_clienteSelecionado == null) {
@@ -158,8 +169,6 @@ namespace UI {
                 MessageBox.Show(ex.Message);
             }
         }
-
-
 
         private void txtNomeCliente_TextChanged(object sender, EventArgs e) {
             var texto = txtNomeCliente.Text.Trim();
@@ -193,9 +202,6 @@ namespace UI {
 
 
         }
-
-
-
         private void txtNomeProduto_TextChanged(object sender, EventArgs e) {
             var texto = txtNomeProduto.Text.Trim();
 
@@ -217,10 +223,6 @@ namespace UI {
             lstNomeProduto.Visible = true;
         }
 
-        private void FormCarrinho_Click(object sender, EventArgs e) {
-
-        }
-
         private async void txtNomeProduto_Click(object sender, EventArgs e) {
             if (lstNomeProduto.SelectedItem is not Produto produto)
                 return;
@@ -238,20 +240,18 @@ namespace UI {
 
         }
 
+        private async Task NovaVenda() {
 
+            _clienteSelecionado = null;
+            _carrinho = new Carrinho();
 
+            txtNomeCliente.Clear();
+            txtNomeCliente.Enabled = true;
 
-        private void numQuantidade_ValueChanged(object sender, EventArgs e) {
-            if (_produtoSelecionado == null) {
-                txtValorItem.Text = "R$ 0,00";
-                return;
-            }
+            dgvCarrinho.DataSource = null;
+            lblTotal.Text = "R$ 0,00";
 
-            var quantidade = (int)numQuantidade.Value;
-            var subtotal = _produtoSelecionado.Preco * quantidade;
-
-            txtValorItem.Text = subtotal.ToString("C");
-
+            _produtos = await _produtoService.GetAllAsync();
         }
 
         private void btnRemover_Click(object sender, EventArgs e) {
@@ -275,20 +275,6 @@ namespace UI {
                 _clienteSelecionado = null;
                 txtNomeCliente.Clear();
             }
-        }
-
-        private async Task NovaVenda() {
-
-            _clienteSelecionado = null;
-            _carrinho = new Carrinho();
-
-            txtNomeCliente.Clear();
-            txtNomeCliente.Enabled = true;
-
-            dgvCarrinho.DataSource = null;
-            lblTotal.Text = "R$ 0,00";
-
-            _produtos = await _produtoService.GetAllAsync();
         }
 
         private async void btnConcluirPedido_ClickAsync(object sender, EventArgs e) {
@@ -321,6 +307,10 @@ namespace UI {
             LimparSelecaoProduto();
 
             Form.ActiveForm.Close();
+        }
+
+        private void FormCarrinho_Click(object sender, EventArgs e) {
+
         }
     }
 }

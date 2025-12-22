@@ -26,20 +26,6 @@ namespace UI {
             InitializeComponent();
         }
 
-        private async void btnTelaCadaProd_Click(object sender, EventArgs e) {
-            var formCadastroProduto = new FormCadastroProduto(_produtoService);
-            formCadastroProduto.ShowDialog();
-
-            if (formCadastroProduto.CadastroRealizadoComSucesso) {
-                await CarregarProdutosAsync();
-            }
-        }
-
-
-
-
-
-
         private void ConfigurarGrid() {
             dgvProdutos.AutoGenerateColumns = false;
             dgvProdutos.DataSource = _bindingSource;
@@ -68,6 +54,7 @@ namespace UI {
             dgvProdutos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvProdutos.RowHeadersVisible = false;
         }
+
         private async Task CarregarProdutosAsync() {
             var produtos = await _produtoService.GetAllAsync();
             _bindingSource.DataSource = produtos;
@@ -79,6 +66,15 @@ namespace UI {
             _bindingSource.DataSource = await _produtoService.GetAllAsync();
 
             lstProdutos.DisplayMember = "Nome";
+        }
+
+        private async void btnTelaCadaProd_Click(object sender, EventArgs e) {
+            var formCadastroProduto = new FormCadastroProduto(_produtoService);
+            formCadastroProduto.ShowDialog();
+
+            if (formCadastroProduto.CadastroRealizadoComSucesso) {
+                await CarregarProdutosAsync();
+            }
         }
 
         private async void btnEditarProd_Click(object sender, EventArgs e) {
@@ -134,11 +130,6 @@ namespace UI {
             lstProdutos.Text = produto.Nome;
             lstProdutos.Visible = false;
         }
-
-        private void lstProdutos_SelectedIndexChanged(object sender, EventArgs e) {
-
-        }
-
         private void txtProduto_TextChanged(object sender, EventArgs e) {
             var texto = txtProduto.Text.Trim();
 
@@ -157,7 +148,6 @@ namespace UI {
             lstProdutos.DataSource = filtrados;
             lstProdutos.Visible = true;
         }
-
         private async void btnPesquisarCli_Click(object sender, EventArgs e) {
             var nome = txtProduto.Text.Trim();
 
@@ -176,12 +166,15 @@ namespace UI {
 
             _bindingSource.DataSource = produtos;
         }
-
         private void btnVoltar_Click(object sender, EventArgs e) {
 
             txtProduto.Clear();
 
             Form.ActiveForm.Close();
         }
+        private void lstProdutos_SelectedIndexChanged(object sender, EventArgs e) {
+
+        }
+
     }
 }

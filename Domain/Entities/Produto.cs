@@ -14,6 +14,7 @@ namespace Domain.Entities {
         public decimal Preco { get; private set; }
         public int Estoque { get; private set; }
 
+        //tomei a decisao de criar dois construtores internos para facilitar a criacao de novos produtos e a atualizacao de produtos existentes
         internal Produto(int id, string nome, string descricao, decimal preco, int estoque) {
             Validar(nome, preco, estoque);
             Id = id;

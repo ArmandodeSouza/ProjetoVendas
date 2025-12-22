@@ -10,9 +10,6 @@ namespace Domain.Repositories {
     public interface IProdutoRepository : IRepository<Produto> {
 
         Task<bool> NomeExisteAsync(string nome);
-        Task<decimal> ObterPrecoAsync(int id);
-        Task<bool> TemEstoqueAsync(int produtoId, int quantidade);
-        Task AtualizarEstoqueAsync(int produtoId, int quantidade);
 
         Task<List<Produto>> BuscaProdutoAsync(string nome);
 

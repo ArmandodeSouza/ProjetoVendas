@@ -13,22 +13,12 @@ namespace UI {
 
         private Cliente? _clienteSelecionado;
         private List<Cliente> _clientes = new();
-        private bool _digitacaoUsuario = true;
 
         public FormCliente(ClienteService clienteService) {
             InitializeComponent();
             _clienteService = clienteService ?? throw new ArgumentNullException(nameof(clienteService));
         }
 
-        private async void btnTelaCadastroCli_Click(object sender, EventArgs e) {
-            using var formCadastroCli = new FormCadastroCli(_clienteService);
-
-            formCadastroCli.ShowDialog();
-
-            if (formCadastroCli.CadastroRealizadoComSucesso) {
-                await CarregarClientesAsync();
-            }
-        }
         private void ConfigurarGrid() {
             dgvClientes.AutoGenerateColumns = false;
             dgvClientes.DataSource = _bindingSource;
@@ -57,8 +47,6 @@ namespace UI {
             var clientes = await _clienteService.GetAllAsync();
             _bindingSource.DataSource = clientes;
         }
-
-
         private async void FormCliente_Load(object sender, EventArgs e) {
             ConfigurarGrid();
 
@@ -68,6 +56,15 @@ namespace UI {
             lstNome.DisplayMember = "Nome";
         }
 
+        private async void btnTelaCadastroCli_Click(object sender, EventArgs e) {
+            using var formCadastroCli = new FormCadastroCli(_clienteService);
+
+            formCadastroCli.ShowDialog();
+
+            if (formCadastroCli.CadastroRealizadoComSucesso) {
+                await CarregarClientesAsync();
+            }
+        }
         private async void btnEditar_Click(object sender, EventArgs e) {
             if (dgvClientes.CurrentRow == null) {
                 MessageBox.Show("Selecione um cliente para editar.");
@@ -116,12 +113,33 @@ namespace UI {
             }
         }
 
-        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+        private void txtNome_TextChanged(object sender, EventArgs e) {
+            var texto = txtNome.Text.Trim();
 
+            if (string.IsNullOrWhiteSpace(texto)) {
+                lstNome.Visible = false;
+                return;
+            }
+
+            var filtrados = _clientes.Where(c => c.Nome.Contains(texto, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (!filtrados.Any()) {
+                lstNome.Visible = false;
+                return;
+            }
+
+            lstNome.DataSource = filtrados;
+            lstNome.Visible = true;
         }
+        private void txtNome_Click(object sender, EventArgs e) {
+            if (lstNome.SelectedItem is not Cliente cliente)
+                return;
 
-        private void txtPesquiNome_Click(object sender, EventArgs e) {
+            _clienteSelecionado = cliente;
 
+            txtNome.Text = cliente.Nome;
+            lstNome.Text = cliente.Nome;
+            lstNome.Visible = false;
         }
 
         private async void btnPesquisarCli_Click(object sender, EventArgs e) {
@@ -143,45 +161,19 @@ namespace UI {
 
             _bindingSource.DataSource = clientes;
         }
-
-        private async void txtNome_TextChanged(object sender, EventArgs e) {
-            var texto = txtNome.Text.Trim();
-
-            if (string.IsNullOrWhiteSpace(texto)) {
-                lstNome.Visible = false;
-                return;
-            }
-
-            var filtrados = _clientes.Where(c => c.Nome.Contains(texto, StringComparison.OrdinalIgnoreCase)).ToList();
-
-            if (!filtrados.Any()) {
-                lstNome.Visible = false;
-                return;
-            }
-
-            lstNome.DataSource = filtrados;
-            lstNome.Visible = true;
-        }
-
-        private void lstNome_SelectedIndexChanged(object sender, EventArgs e) {
-
-        }
-
-        private void txtNome_Click(object sender, EventArgs e) {
-            if (lstNome.SelectedItem is not Cliente cliente)
-                return;
-
-            _clienteSelecionado = cliente;
-
-            txtNome.Text = cliente.Nome;
-            lstNome.Text = cliente.Nome;
-            lstNome.Visible = false;
-        }
-
         private void btnVoltar_Click(object sender, EventArgs e) {
             txtNome.Clear();
 
             Form.ActiveForm.Close();
+        }
+        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+
+        }
+        private void txtPesquiNome_Click(object sender, EventArgs e) {
+
+        }
+        private void lstNome_SelectedIndexChanged(object sender, EventArgs e) {
+
         }
     }
 }

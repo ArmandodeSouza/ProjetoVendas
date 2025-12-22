@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces {
     public interface IVendaService {
-        Task RegistrarVendaAsync(
-            int clienteId,
-            List<(int produtoId, int quantidade)> itens
-        );
+        Task RegistrarVendaAsync(int clienteId, List<(int produtoId, int quantidade)> itens);
     }
 }

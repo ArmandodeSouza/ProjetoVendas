@@ -23,7 +23,6 @@ namespace Infrastructure.Repositories {
             var result = await cmd.ExecuteScalarAsync();
             return result != null;
         }
-
         public async Task AddAsync(Cliente entity) {
             const string sql = @"
                 INSERT INTO clientes (nome, email, telefone)
@@ -39,7 +38,6 @@ namespace Infrastructure.Repositories {
 
             await cmd.ExecuteNonQueryAsync();
         }
-
         public async Task<List<Cliente>> GetAllAsync() {
             const string sql =
                 "SELECT id, nome, email, telefone FROM clientes ORDER BY nome";
@@ -63,7 +61,6 @@ namespace Infrastructure.Repositories {
 
             return clientes;
         }
-
         public async Task UpdateAsync(Cliente cliente) {
             const string sql = @"
                 UPDATE clientes
@@ -96,17 +93,13 @@ namespace Infrastructure.Repositories {
             await cmd.ExecuteNonQueryAsync();
         }
 
-        public Task<Cliente?> GetByIdAsync(int id) {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<Cliente>> NomeExisteAsync(string nome) {
 
             const string sql = @"
-        SELECT id, nome, email, telefone
-        FROM clientes
-        WHERE nome ILIKE @nome
-        ORDER BY nome";
+                SELECT id, nome, email, telefone
+                FROM clientes
+                WHERE nome ILIKE @nome
+                ORDER BY nome";
 
             using var conn = DbConnectionFactory.Create();
             await conn.OpenAsync();
@@ -129,6 +122,9 @@ namespace Infrastructure.Repositories {
             }
 
             return clientes;
+        }
+        public Task<Cliente?> GetByIdAsync(int id) {
+            throw new NotImplementedException();
         }
 
     }

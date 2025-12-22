@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Application.Servivces {
 
         public async Task CadastrarAsync(Cliente cliente) {
 
+            //Regra de negócio - campos obrigatórios e email único
             if (string.IsNullOrWhiteSpace(cliente.Nome))
                 throw new Exception("Nome obrigatório");
 
@@ -34,13 +36,19 @@ namespace Application.Servivces {
         }
 
         public async Task AtualizarAsync(Cliente cliente) {
+
+            //Regra de negócio - campos obrigatórios e email único
             if (string.IsNullOrWhiteSpace(cliente.Nome))
-                throw new Exception("Nome obrigatório");
+                throw new DomainException("Nome obrigatório");
+
             if (string.IsNullOrWhiteSpace(cliente.Email))
-                throw new Exception("E-mail obrigatório");
+                throw new DomainException("E-mail obrigatório");
+
             var clientesExistentes = await _repository.GetAllAsync();
+
+            //Ignora o próprio cliente durante a validação de e-mail em atualizações
             if (clientesExistentes.Any(c => c.Email == cliente.Email && c.Id != cliente.Id))
-                throw new Exception("E-mail já cadastrado para outro cliente");
+                throw new DomainException("E-mail já cadastrado para outro cliente");
             await _repository.UpdateAsync(cliente);
         }
 

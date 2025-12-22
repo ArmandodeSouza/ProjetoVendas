@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Application.DTO.Relatorios {
     public class RelatorioVendaDto {
-
         public int VendaId { get; set; }
         public DateTime DataVenda { get; set; }
         public string Cliente { get; set; } = string.Empty;

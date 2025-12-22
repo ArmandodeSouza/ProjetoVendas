@@ -35,6 +35,7 @@ namespace UI {
 
         private void PreencherCamposParaEdicao() {
             if (_produtoEmEdicao == null) return;
+
             txtNomeProd.Text = _produtoEmEdicao.Nome;
             txtDescProd.Text = _produtoEmEdicao.Descricao;
             txtPrecoProd.Text = _produtoEmEdicao.Preco.ToString();
@@ -42,8 +43,6 @@ namespace UI {
 
             btnCadProd.Text = "Salvar alterações";
         }
-
-
 
         private async void btnCadProd_Click(object sender, EventArgs e) {
 
@@ -59,8 +58,6 @@ namespace UI {
                     MessageBox.Show("Produto cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 } else {
 
-
-
                     await _produtoService.AtualizarAsync(
                         _produtoEmEdicao.Id,
                         txtNomeProd.Text,
@@ -70,7 +67,6 @@ namespace UI {
                     );
 
                     MessageBox.Show("Produto atualizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
 
                 }
 

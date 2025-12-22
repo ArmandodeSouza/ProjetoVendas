@@ -16,8 +16,6 @@ namespace UI {
 
         private readonly ClienteService _clienteService;
         private Cliente? _clienteEmEdicao;
-
-
         public bool CadastroRealizadoComSucesso { get; private set; }
 
         public FormCadastroCli(ClienteService clienteService) {

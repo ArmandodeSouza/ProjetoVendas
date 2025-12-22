@@ -44,9 +44,9 @@ namespace Infrastructure.Repositories {
                 }
 
                 var sqlEstoque = @"
-                UPDATE produtos
-                SET estoque = estoque - @quantidade
-                WHERE id = @produto_id";
+                    UPDATE produtos
+                    SET estoque = estoque - @quantidade
+                    WHERE id = @produto_id";
                 foreach (var item in venda.Itens) {
                     await using var cmdEstoque = new NpgsqlCommand(sqlEstoque, (NpgsqlConnection)conn);
                     cmdEstoque.Parameters.AddWithValue("quantidade", item.Quantidade);

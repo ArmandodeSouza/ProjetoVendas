@@ -27,7 +27,7 @@ namespace Application.Servivces {
         }
         public async Task CadastrarAsync(string nome, string descricao, decimal preco, int estoque) {
             if (await _repository.NomeExisteAsync(nome))
-                throw new ArgumentException("Já existe um produto com este nome.");
+                throw new DomainException("Já existe um produto com este nome.");
 
             var produto = _factory.Criar(nome, descricao, preco, estoque);
             await _repository.AddAsync(produto);
@@ -36,17 +36,17 @@ namespace Application.Servivces {
         public async Task AtualizarAsync(int id, string nome, string descricao, decimal preco, int estoque) {
             var produto = await _repository.GetByIdAsync(id);
             if (produto == null)
-                throw new ArgumentException("Produto não encontrado.");
+                throw new DomainException("Produto não encontrado.");
             if (await _repository.NomeExisteAsync(nome) && produto.Nome != nome)
-                throw new ArgumentException("Já existe outro produto com este nome.");
-            var produtoTemp = _factory.Alterar(id, nome, descricao, preco, estoque);
-            await _repository.UpdateAsync(produtoTemp);
+                throw new DomainException("Já existe outro produto com este nome.");
+            var produtoAtualizado = _factory.Alterar(id, nome, descricao, preco, estoque);
+            await _repository.UpdateAsync(produtoAtualizado);
         }
 
         public async Task ExcluirAsync(int id) {
             var produto = await _repository.GetByIdAsync(id);
             if (produto == null)
-                throw new ArgumentException("Produto não encontrado.");
+                throw new DomainException("Produto não encontrado.");
 
             await _repository.DeleteAsync(id);
         }

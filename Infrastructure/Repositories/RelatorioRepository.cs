@@ -23,8 +23,6 @@ namespace Infrastructure.Repositories {
                 AND v.data_venda < (@fim + INTERVAL '1 day')
                 ORDER BY c.nome, v.data_venda";
 
-
-
             await using var conn = DbConnectionFactory.Create();
             await conn.OpenAsync();
 

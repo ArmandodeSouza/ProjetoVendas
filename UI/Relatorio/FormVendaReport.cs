@@ -29,16 +29,6 @@ namespace UI.Relatorio {
             _relatorioService = relatorioService;
         }
 
-        private async void FormRelatorioVendas_Load(
-            object sender,
-            EventArgs e
-        ) {
-            var inicio = _dataInicio;
-            var fim = _dataFim;
-
-            await CarregarRelatorioAsync();
-        }
-
         private async Task CarregarRelatorioAsync() {
 
             List<RelatorioVendaDto> dados = await _relatorioService.GerarRelatorioVendasAsync(_dataInicio, _dataFim);
@@ -58,7 +48,19 @@ namespace UI.Relatorio {
 
         }
 
+        private async void FormRelatorioVendas_Load(
+            object sender,
+            EventArgs e
+        ) {
+            var inicio = _dataInicio;
+            var fim = _dataFim;
 
+            reportViewer1.Dock = DockStyle.Fill;
+            reportViewer1.SetDisplayMode(DisplayMode.PrintLayout);
+            reportViewer1.ZoomMode = ZoomMode.PageWidth;
+
+            await CarregarRelatorioAsync();
+        }
 
     }
 }
