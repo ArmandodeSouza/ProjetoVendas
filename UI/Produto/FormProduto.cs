@@ -20,7 +20,6 @@ namespace UI {
 
         private Produto? _produtoSelecionado;
         private List<Produto> _produtos = new();
-        private bool _digitacaoUsuario = true;
 
         public FormProduto(ProdutoService produtoService) {
             _produtoService = produtoService ?? throw new ArgumentException(nameof(produtoService));
@@ -176,6 +175,13 @@ namespace UI {
             }
 
             _bindingSource.DataSource = produtos;
+        }
+
+        private void btnVoltar_Click(object sender, EventArgs e) {
+
+            txtProduto.Clear();
+
+            Form.ActiveForm.Close();
         }
     }
 }

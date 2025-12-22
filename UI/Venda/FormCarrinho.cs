@@ -315,5 +315,12 @@ namespace UI {
 
 
         }
+
+        private void btnCancelarPedido_Click(object sender, EventArgs e) {
+            LimparDadosProduto();
+            LimparSelecaoProduto();
+
+            Form.ActiveForm.Close();
+        }
     }
 }

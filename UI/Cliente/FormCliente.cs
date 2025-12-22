@@ -177,5 +177,11 @@ namespace UI {
             lstNome.Text = cliente.Nome;
             lstNome.Visible = false;
         }
+
+        private void btnVoltar_Click(object sender, EventArgs e) {
+            txtNome.Clear();
+
+            Form.ActiveForm.Close();
+        }
     }
 }

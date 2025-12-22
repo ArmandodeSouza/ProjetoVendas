@@ -26,6 +26,10 @@
             mskInicio = new MaskedTextBox();
             mskFim = new MaskedTextBox();
             btnGerar = new Button();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            btnCancelar = new Button();
             SuspendLayout();
             // 
             // mskInicio
@@ -56,11 +60,52 @@
             btnGerar.UseVisualStyleBackColor = true;
             btnGerar.Click += btnGerar_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(97, 34);
+            label1.Name = "label1";
+            label1.Size = new Size(92, 15);
+            label1.TabIndex = 3;
+            label1.Text = "Digite o periodo";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(41, 66);
+            label2.Name = "label2";
+            label2.Size = new Size(38, 15);
+            label2.TabIndex = 4;
+            label2.Text = "Inicial";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(41, 121);
+            label3.Name = "label3";
+            label3.Size = new Size(32, 15);
+            label3.TabIndex = 5;
+            label3.Text = "Final";
+            // 
+            // btnCancelar
+            // 
+            btnCancelar.Location = new Point(97, 237);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(100, 23);
+            btnCancelar.TabIndex = 6;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
+            // 
             // FormRelatorio
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(303, 354);
+            Controls.Add(btnCancelar);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
             Controls.Add(btnGerar);
             Controls.Add(mskFim);
             Controls.Add(mskInicio);
@@ -76,5 +121,9 @@
         private MaskedTextBox mskInicio;
         private MaskedTextBox mskFim;
         private Button btnGerar;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Button btnCancelar;
     }
 }

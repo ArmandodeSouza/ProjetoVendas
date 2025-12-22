@@ -33,6 +33,7 @@
             btnTelaCadastroCli = new Button();
             txtNome = new TextBox();
             lstNome = new ListBox();
+            btnVoltar = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvClientes).BeginInit();
             SuspendLayout();
@@ -142,11 +143,22 @@
             lstNome.Click += txtNome_Click;
             lstNome.SelectedIndexChanged += lstNome_SelectedIndexChanged;
             // 
+            // btnVoltar
+            // 
+            btnVoltar.Location = new Point(530, 415);
+            btnVoltar.Name = "btnVoltar";
+            btnVoltar.Size = new Size(75, 23);
+            btnVoltar.TabIndex = 10;
+            btnVoltar.Text = "Voltar";
+            btnVoltar.UseVisualStyleBackColor = true;
+            btnVoltar.Click += btnVoltar_Click;
+            // 
             // FormCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnVoltar);
             Controls.Add(lstNome);
             Controls.Add(txtNome);
             Controls.Add(btnTelaCadastroCli);
@@ -179,5 +191,6 @@
         private Button btnTelaCadastroCli;
         private TextBox txtNome;
         private ListBox lstNome;
+        private Button btnVoltar;
     }
 }

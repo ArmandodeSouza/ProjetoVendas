@@ -21,20 +21,6 @@ namespace UI.Relatorio {
 
             InitializeComponent();
         }
-
-        private void btnGerar_Click(object sender, EventArgs e) {
-            if (!TryObterDatas(out var dataInicio, out var dataFim))
-                return;
-
-            var formRelatorio = new FormVendaReport(
-                dataInicio,
-                dataFim,
-                relatorioService: _relatorioService
-            );
-
-            formRelatorio.ShowDialog();
-        }
-
         private bool TryObterDatas(
             out DateTime dataInicio,
             out DateTime dataFim
@@ -76,6 +62,26 @@ namespace UI.Relatorio {
             }
 
             return true;
+        }
+
+        private void btnGerar_Click(object sender, EventArgs e) {
+            if (!TryObterDatas(out var dataInicio, out var dataFim))
+                return;
+
+            var formRelatorio = new FormVendaReport(
+                dataInicio,
+                dataFim,
+                relatorioService: _relatorioService
+            );
+
+            formRelatorio.ShowDialog();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e) {
+            mskInicio.Clear();
+            mskFim.Clear();
+
+            Form.ActiveForm.Close();
         }
     }
 }

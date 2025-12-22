@@ -49,6 +49,10 @@ namespace UI.Relatorio {
 
             reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("DsVendas", dados));
 
+            var periodo = $"Período: {_dataInicio:dd/MM/yyyy} até {_dataFim:dd/MM/yyyy}";
+
+            reportViewer1.LocalReport.SetParameters(new ReportParameter("Periodo", periodo));
+
             reportViewer1.RefreshReport();
 
 

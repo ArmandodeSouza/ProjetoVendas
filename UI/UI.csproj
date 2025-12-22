@@ -9,10 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="RelatorioVendasDataSet.xsd" />
     <None Remove="Relatorio\RptVendas.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="RelatorioVendasDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RelatorioVendasDataSet.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Relatorio\RptVendas.rdlc" />
   </ItemGroup>
 
@@ -25,21 +30,6 @@
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="RelatorioVendasDataSet.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>RelatorioVendasDataSet.xsd</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="RelatorioVendasDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>RelatorioVendasDataSet.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
 
 </Project>

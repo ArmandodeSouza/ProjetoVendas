@@ -33,6 +33,7 @@
             label1 = new Label();
             txtProduto = new TextBox();
             lstProdutos = new ListBox();
+            btnVoltar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProdutos).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -142,11 +143,22 @@
             lstProdutos.Click += txtProduto_Click;
             lstProdutos.SelectedIndexChanged += lstProdutos_SelectedIndexChanged;
             // 
+            // btnVoltar
+            // 
+            btnVoltar.Location = new Point(509, 417);
+            btnVoltar.Name = "btnVoltar";
+            btnVoltar.Size = new Size(75, 23);
+            btnVoltar.TabIndex = 19;
+            btnVoltar.Text = "Voltar";
+            btnVoltar.UseVisualStyleBackColor = true;
+            btnVoltar.Click += btnVoltar_Click;
+            // 
             // FormProduto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnVoltar);
             Controls.Add(lstProdutos);
             Controls.Add(txtProduto);
             Controls.Add(panel1);
@@ -180,5 +192,6 @@
         private Label label1;
         private TextBox txtProduto;
         private ListBox lstProdutos;
+        private Button btnVoltar;
     }
 }

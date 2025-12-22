@@ -19,8 +19,9 @@ namespace Infrastructure.Repositories {
                     v.total AS Total
                 FROM vendas v
                 JOIN clientes c ON c.id = v.cliente_id
-                WHERE v.data_venda BETWEEN @inicio AND @fim
-                ORDER BY c.nome";
+                WHERE v.data_venda >= @inicio
+                AND v.data_venda < (@fim + INTERVAL '1 day')
+                ORDER BY c.nome, v.data_venda";
 
 
 
@@ -28,8 +29,8 @@ namespace Infrastructure.Repositories {
             await conn.OpenAsync();
 
             await using var cmd = new NpgsqlCommand(sql, (NpgsqlConnection)conn);
-            cmd.Parameters.AddWithValue("@inicio", dataInicio);
-            cmd.Parameters.AddWithValue("@fim", dataFim);
+            cmd.Parameters.AddWithValue("@inicio", dataInicio.Date);
+            cmd.Parameters.AddWithValue("@fim", dataFim.Date);
 
             var lista = new List<RelatorioVendaDto>();
             await using var reader = await cmd.ExecuteReaderAsync();
